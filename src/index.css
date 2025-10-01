@@ -1,0 +1,27 @@
+#root{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border:solid blue;
+}
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  height: screen;
+  width: 100%;
+  border:solid red;
+    margin: 0;
+  padding: 0;
+  height: 100%;
+}
+html {
+    height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border:solid purple;
+}
