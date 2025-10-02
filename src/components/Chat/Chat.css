@@ -4,17 +4,37 @@
     display: flex ;
     justify-content: center;
     align-items: center;
-    border: solid yellow;
+    /* border: solid yellow; */
 }
 .chat_container{
-    border: solid white;
+    /* border: solid white; */
     flex-grow: 1;
 }
+.chat_log{
+    border: solid #534c3b 8.5px;
+    height: 400px;
+    margin-bottom: 50px;
+    background-color: #30241a;
+    margin-left: auto;
+    margin-right: auto;
+}
 .question_ballon{
-    width: 25%;
-    height: 25%;
+    width: 20%;
+    height: 20%;
     position:absolute; 
     top: 1px;
     right: 1px;
 }
-
+h1{
+    margin-bottom: 80px;
+}
+.feather{
+    width: 80px;
+    height: 30px;
+    border:solid orange;
+}
+.input_area{
+    border: solid green;
+    display: flex;
+    flex-direction: row;
+}

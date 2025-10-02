@@ -1,3 +1,8 @@
 .input_text{
+    height: 30px;
+    background-color: #f7e5cb;
+    border: solid purple;
     width: 100%;
+    float:left
+    
 }
