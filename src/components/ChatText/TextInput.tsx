@@ -1,9 +1,17 @@
 import React from 'react'
 import './TextInput.css';
-function TextInput() {
+interface TextInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string; 
+}
+function TextInput({ value, onChange, placeholder }: TextInputProps) {
   return (
-    <div className=''>
-      <input className="input_text">
+    <div className='text_input'>
+      <input type="text"className="input_text"
+        value={value}
+      onChange={onChange}
+      placeholder={placeholder}>
     </input></div>
   )
 }
