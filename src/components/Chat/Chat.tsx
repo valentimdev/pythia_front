@@ -49,6 +49,7 @@ function Chat() {
           {messages.map((message) => (
             <div className="message_bubble" key={message.id}>
               <p className="usuario_text">{message.text}</p>
+              <p>Viajante</p>
             </div>
           ))}
           <div ref={messagesEndRef} />

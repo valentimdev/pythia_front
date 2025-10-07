@@ -38,7 +38,7 @@
   /* margin-bottom: 10px; */
   /*max-width: 98%;*/
   display: flex;
-  width: 40%;
+  width: 60%;
   margin-right: 20px;
   justify-content: flex-end;
   align-self: flex-end;
@@ -54,12 +54,22 @@
 h1 {
   margin-bottom: 80px;
 }
+
+
+
+
+
+
+
 .feather {
   width: 80px;
   height: 50px;
   /* border:solid orange; */
   flex-shrink: 0;
 }
+
+
+
 .input_area {
   /* border: solid green; */
   display: flex;
@@ -88,13 +98,28 @@ button {
   height: 1;
 }
 .question_ballon:hover {
-  animation: beat 0.65s infinite alternate;
+  animation: glow 1s infinite alternate;
 }
-@keyframes beat {
-  0% {
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1));
+  }
+}
+.feather:hover {
+  animation: feather-pulse 1s infinite alternate;
+}
+
+@keyframes feather-pulse {
+  from {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
     transform: scale(1);
   }
-  100% {
-    transform: scale(1.1); /* Slightly larger */
+  to {
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)); /* Brilho dourado/amarelo */
+    transform: scale(1.05); /* Cresce um pouco */
   }
 }

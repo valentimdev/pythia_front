@@ -1,11 +1,20 @@
 .input_text{
     background-color: #D8C3A5;
+    font: var(--font-rune);
     border: solid #000000 2px;
     flex: 1;
     height: 30px;
     width: 100%; 
     min-width: 0; 
+    /* box-shadow: inset 10px 0 5px rgba(0, 0, 0, 0.5);  */
+    font-size: 25px;
+    border-radius: 5px
+}
+.text_input{
+    box-shadow: inset 0px 0 5px rgba(0, 0, 0, 0.5); 
+
 }
 div{
     width: 100%;
+
 }
