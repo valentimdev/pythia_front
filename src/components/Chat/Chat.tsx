@@ -3,6 +3,7 @@ import './Chat.css';
 import TextInput from '../ChatText/TextInput.tsx';
 import balao from '@/assets/balao_duvida.svg';
 import feather from '@/assets/feather.svg';
+import globo from '@/assets/globo_olho.svg';
 import ChatBox from '../ChatBox/ChatBox.tsx';
 
 interface Message {
@@ -40,15 +41,16 @@ function Chat() {
     <div className="chat_wrapper">
       <img className="question_ballon" src={balao}></img>
       <div className="chat_container">
-        <h1>RPG BOT</h1>
+        <div className="logo">
+        <h1>Pythia</h1>
+        {/* <img className="globo" src={globo}></img> */}
+        </div>
         <div className="messages_area">
           {messages.map((message) => (
-            // 2. Cada mensagem agora usa a classe 'message_bubble'
             <div className="message_bubble" key={message.id}>
-              <p>{message.text}</p>
+              <p className="usuario_text">{message.text}</p>
             </div>
           ))}
-          {/* Este div vazio ajuda a rolagem a funcionar corretamente */}
           <div ref={messagesEndRef} />
         </div>
         <form  className="input_area" onSubmit={handleSendMessage}>
