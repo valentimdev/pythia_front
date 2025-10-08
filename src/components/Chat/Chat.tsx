@@ -18,6 +18,8 @@ function Chat() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
   const handleSendMessage = (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("teste")
@@ -37,9 +39,23 @@ function Chat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+    const openDialog = () => {
+    dialogRef.current?.showModal();
+  };
+
+  const closeDialog = () => {
+    dialogRef.current?.close(); 
+  };
   return (
     <div className="chat_wrapper">
-      <img className="question_ballon" src={balao}></img>
+      <button onClick={openDialog}><img className="question_ballon" src={balao}></img></button>
+      
+      <dialog ref={dialogRef} className="meu-dialog">
+        <h2>Ola Viajante!</h2>
+        <p>Pythia é um projeto com o intuito de ajudar mestres RPGs a criar cenarios,historias e personagens</p>
+        <button onClick={closeDialog}>Fechar</button>
+      </dialog>
       <div className="chat_container">
         <div className="logo">
         <h1>Pythia</h1>

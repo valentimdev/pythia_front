@@ -79,7 +79,20 @@ h1 {
 
 
 
+.meu-dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+}
 
+
+.meu-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px); 
+}
 
 .feather {
   width: 80px;
@@ -88,7 +101,19 @@ h1 {
   flex-shrink: 0;
 }
 
+.meu-dialog {
+  border: none;
+  border-radius: 4px;
+  max-width: 500px;
+  width: 90%;
+  background-color:var()
+}
 
+
+.meu-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px); 
+}
 
 .input_area {
   /* border: solid green; */
