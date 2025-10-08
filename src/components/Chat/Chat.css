@@ -38,11 +38,29 @@
   /* margin-bottom: 10px; */
   /*max-width: 98%;*/
   display: flex;
+  flex-direction: column;
   width: 60%;
   margin-right: 20px;
   justify-content: flex-end;
   align-self: flex-end;
   word-wrap: break-word;
+  border: solid black;
+}
+.caixa_mensagem_viajante{
+  border:solid blue;
+  display: flex;
+  justify-content: flex-end;
+  word-wrap: break-word;
+  flex-direction: column;
+  align-items: flex-end;
+  overflow-wrap: break-word;
+  word-break: break-all; 
+}
+
+.caixa_viajante_fixo{
+  border:solid  yellow;  
+  display: flex;
+    justify-content: flex-end;
 }
 .question_ballon {
   width: 10%;
@@ -104,9 +122,11 @@ button {
 @keyframes glow {
   from {
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    transform: scale(1);
   }
   to {
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1));
+    transform: scale(1.07); 
   }
 }
 .feather:hover {
@@ -119,7 +139,7 @@ button {
     transform: scale(1);
   }
   to {
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)); /* Brilho dourado/amarelo */
-    transform: scale(1.05); /* Cresce um pouco */
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)); 
+    transform: scale(1.10); 
   }
 }
