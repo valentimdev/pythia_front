@@ -106,9 +106,16 @@ h1 {
   border-radius: 4px;
   max-width: 500px;
   width: 90%;
-  background-color:var()
+  background-color:#d8c3a5;
+  margin:auto;
+  padding: auto;
 }
 
+.fechar{
+  font-family:var(--font-rune);
+  text-align: center;
+  margin: auto;
+}
 
 .meu-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.6);

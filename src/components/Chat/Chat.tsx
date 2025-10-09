@@ -20,17 +20,14 @@ function Chat() {
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const handleSendMessage = (event:React.FormEvent<HTMLFormElement>) => {
+  const handleSendMessage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("teste")
+    console.log('teste');
 
     if (newMessage.trim() === '') {
       return;
     }
-    setMessages([
-      ...messages,
-      { id: Date.now(), text: newMessage }, 
-    ]);
+    setMessages([...messages, { id: Date.now(), text: newMessage }]);
     setNewMessage('');
   };
   const scrollToBottom = () => {
@@ -40,51 +37,72 @@ function Chat() {
     scrollToBottom();
   }, [messages]);
 
-    const openDialog = () => {
+  const openDialog = () => {
     dialogRef.current?.showModal();
   };
 
   const closeDialog = () => {
-    dialogRef.current?.close(); 
+    dialogRef.current?.close();
+  };
+  const handleDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target === dialogRef.current) {
+      closeDialog();
+    }
   };
   return (
     <div className="chat_wrapper">
-      <button onClick={openDialog}><img className="question_ballon" src={balao}></img></button>
-      
-      <dialog ref={dialogRef} className="meu-dialog">
+      <button onClick={openDialog}>
+        <img className="question_ballon" src={balao}></img>
+      </button>
+
+      <dialog ref={dialogRef} className="meu-dialog" onClick={handleDialogClick}>
         <h2>Ola Viajante!</h2>
-        <p>Pythia é um projeto com o intuito de ajudar mestres RPGs a criar cenarios,historias e personagens</p>
-        <button onClick={closeDialog}>Fechar</button>
+        <p>
+          Pythia é um oráculo digital criado para ajudar Mestres de RPG a forjar
+          cenários, tecer histórias e dar vida a personagens.
+        </p>
+        <h2>Como funciona?</h2>
+        <p>
+          É simples: comece me dando uma ideia, uma palavra-chave ou um
+          conceito. Peça por "uma taverna suspeita", "um vilão que usa magia de
+          sangue" ou "uma missão para resgatar um artefato perdido". A partir da
+          sua faísca de inspiração, eu criarei os detalhes para você. O que
+          vamos criar hoje?
+        </p>
+        <button className="fechar" onClick={closeDialog}>
+          Fechar
+        </button>
       </dialog>
       <div className="chat_container">
         <div className="logo">
-        <h1>Pythia</h1>
-        {/* <img className="globo" src={globo}></img> */}
+          <h1>Pythia</h1>
+          {/* <img className="globo" src={globo}></img> */}
         </div>
         <div className="messages_area">
           {messages.map((message) => (
             <div className="message_bubble" key={message.id}>
               <div className="caixa_mensagem_viajante">
-              <p className="usuario_text">{message.text}</p>
+                <p className="usuario_text">{message.text}</p>
               </div>
               <div className="caixa_viajante_fixo">
-              <p>Viajante</p>
-            </div>
+                <p>Viajante</p>
+              </div>
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <form  className="input_area" onSubmit={handleSendMessage}>
-          <TextInput 
+        <form className="input_area" onSubmit={handleSendMessage}>
+          <TextInput
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Digite sua mensagem..."/>
-          <button type="submit"><img className="feather" src={feather}></img>
+            placeholder="Digite sua mensagem..."
+          />
+          <button type="submit">
+            <img className="feather" src={feather}></img>
           </button>
-          </form>
-        </div>
+        </form>
       </div>
-    
+    </div>
   );
 }
 
