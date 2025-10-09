@@ -23,47 +23,86 @@
   background-color: #30241a;
   width: 97%;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  
   /* margin-left: auto; */
   /* margin-right: auto; */
 }
 
 .message_bubble {
   color: white;
-  /* padding: 8px 12px; */
-  /* border: solid black 1px; */
-  /* border-radius: 15px; */
-  /* margin-bottom: 10px; */
-  /*max-width: 98%;*/
   display: flex;
   flex-direction: column;
   width: 60%;
   margin-right: 20px;
   justify-content: flex-end;
   align-self: flex-end;
-  word-wrap: break-word;
-  border: solid black;
+  white-space: normal;
+  max-width: 100%;
+  /* border: solid black; */
+}
+.caixa_remetente p{
+  /* border:solid black; */
+  margin-top: 0;
+  /* margin: top 0 */
+}
+.caixa_mensagem{
+  margin-bottom:0;
+}
+.message_bubble p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .caixa_mensagem_viajante{
   /* border:solid blue; */
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   flex-direction: column;
   align-items: flex-end;
   text-align: left;
   
   word-wrap: break-word;
   overflow-wrap: break-word;
-  /* word-break: break-all;  */
+
+  
 }
 
-.caixa_viajante_fixo{
-  border:solid  yellow;  
+.message_row {
+  display: flex;
+  width: 100%;
+}
+.user_row .message_bubble {
+  align-self: flex-start;
+  color: #ffff01;
+}
+.user_row .message_bubble p {
+  text-align: right;
+}
+.user_row {
+  justify-content: flex-end;
+}
+.oracle_row {
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+.oracle_row .message_bubble p {
+  text-align: left;
+}
+
+.oracle_row .message_bubble {
+  align-self: flex-start;
+
+  color: #fff;
+}
+/* .caixa_viajante_fixo{
   display: flex;
     justify-content: flex-end;
-}
+    border:solid black;
+    
+} */
 .question_ballon {
   width: 10%;
   height: 10%;
@@ -75,8 +114,16 @@ h1 {
   margin-bottom: 80px;
 }
 
+h2{
+  font-size:30px;
+}
+p{
+  font-size:20px;
+}
 
-
+h2{
+  text-shadow: 1px 1px 2px #000
+}
 
 
 .meu-dialog {
@@ -87,6 +134,7 @@ h1 {
   max-width: 500px;
   width: 90%;
 }
+
 
 
 .meu-dialog::backdrop {
@@ -103,7 +151,7 @@ h1 {
 
 .meu-dialog {
   border: none;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   max-width: 500px;
   width: 90%;
   background-color:#d8c3a5;
@@ -137,6 +185,7 @@ button {
 .usuario_text {
   font-size: 23px;
   color: #ffff01;
+  text-shadow: 1px 1px 0px black;
 }
 .globo {
   width: 5%;

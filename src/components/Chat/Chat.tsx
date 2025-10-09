@@ -9,6 +9,7 @@ import ChatBox from '../ChatBox/ChatBox.tsx';
 interface Message {
   id: number;
   text: string;
+  sender: 'user' | 'oracle';
 }
 function Chat() {
   //mensagens que sao ser displayadas na caixa
@@ -20,16 +21,36 @@ function Chat() {
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const handleSendMessage = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log('teste');
+const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-    if (newMessage.trim() === '') {
-      return;
-    }
-    setMessages([...messages, { id: Date.now(), text: newMessage }]);
-    setNewMessage('');
+  if (newMessage.trim() === '') {
+    return;
+  }
+
+  const userMessage: Message = {
+    id: Date.now(),
+    text: newMessage,
+    sender: 'user',
   };
+  setMessages(prevMessages => [...prevMessages, userMessage]);
+  
+  
+  const currentMessage = newMessage;
+  setNewMessage('');
+
+
+  setTimeout(() => {
+    const oracleResponse: Message = {
+      id: Date.now(),
+      text: `Entendido. Gerando detalhes sobre: "${currentMessage}"`, 
+      sender: 'oracle',
+    };
+
+
+    setMessages(prevMessages => [...prevMessages, oracleResponse]);
+  }, 1500); 
+};
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -55,7 +76,11 @@ function Chat() {
         <img className="question_ballon" src={balao}></img>
       </button>
 
-      <dialog ref={dialogRef} className="meu-dialog" onClick={handleDialogClick}>
+      <dialog
+        ref={dialogRef}
+        className="meu-dialog"
+        onClick={handleDialogClick}
+      >
         <h2>Ola Viajante!</h2>
         <p>
           Pythia é um oráculo digital criado para ajudar Mestres de RPG a forjar
@@ -80,12 +105,19 @@ function Chat() {
         </div>
         <div className="messages_area">
           {messages.map((message) => (
-            <div className="message_bubble" key={message.id}>
-              <div className="caixa_mensagem_viajante">
-                <p className="usuario_text">{message.text}</p>
-              </div>
-              <div className="caixa_viajante_fixo">
-                <p>Viajante</p>
+            <div
+              key={message.id}
+              className={`message_row ${
+                message.sender === 'user' ? 'user_row' : 'oracle_row'
+              }`}
+            >
+              <div className="message_bubble">
+                <div className="caixa_mensagem">
+                  <p className="message_text">{message.text}</p>
+                </div>
+                <div className="caixa_remetente">
+                  <p>{message.sender === 'user' ? 'Viajante' : 'Pythia'}</p>
+                </div>
               </div>
             </div>
           ))}
