@@ -3,13 +3,12 @@ import './Chat.css';
 import TextInput from '../ChatText/TextInput.tsx';
 import balao from '@/assets/balao_duvida.svg';
 import feather from '@/assets/feather.svg';
-import globo from '@/assets/globo_olho.svg';
-import ChatBox from '../ChatBox/ChatBox.tsx';
 
 interface Message {
   id: number;
   text: string;
   sender: 'user' | 'oracle';
+  fullText?: string;
 }
 function Chat() {
   //mensagens que sao ser displayadas na caixa
@@ -21,43 +20,92 @@ function Chat() {
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (newMessage.trim() === '') {
-    return;
-  }
+  const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const userMessage: Message = {
-    id: Date.now(),
-    text: newMessage,
-    sender: 'user',
-  };
-  setMessages(prevMessages => [...prevMessages, userMessage]);
-  
-  
-  const currentMessage = newMessage;
-  setNewMessage('');
+    if (newMessage.trim() === '') {
+      return;
+    }
 
-
-  setTimeout(() => {
-    const oracleResponse: Message = {
+    const userMessage: Message = {
       id: Date.now(),
-      text: `Entendido. Gerando detalhes sobre: "${currentMessage}"`, 
-      sender: 'oracle',
+      text: newMessage,
+      sender: 'user',
     };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
 
+    const currentMessage = newMessage;
+    setNewMessage('');
 
-    setMessages(prevMessages => [...prevMessages, oracleResponse]);
-  }, 1500); 
-};
+    setIsLoading(true);
+    setTimeout(() => {
+      const fullOracleText = `Entendido. Gerando detalhes místicos sobre: "${currentMessage}"`;
+      const oracleResponse: Message = {
+        id: Date.now(),
+        text: '',
+        sender: 'oracle',
+        fullText: fullOracleText,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, oracleResponse]);
+      // setIsLoading(false);
+    }, 1500);
+  };
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
 
+    if (
+      lastMessage &&
+      lastMessage.sender === 'oracle' &&
+      lastMessage.fullText &&
+      lastMessage.text.length < lastMessage.fullText.length
+    ) {
+      const intervalId = setInterval(() => {
+        setMessages((prevMessages) => {
+          const currentLastMessage = prevMessages[prevMessages.length - 1];
+
+          if (!currentLastMessage || !currentLastMessage.fullText) {
+            clearInterval(intervalId);
+            return prevMessages;
+          }
+
+          if (
+            currentLastMessage.text.length ===
+            currentLastMessage.fullText.length
+          ) {
+            clearInterval(intervalId);
+            return prevMessages;
+          }
+
+          const newMessages = [...prevMessages];
+          const nextCharIndex = currentLastMessage.text.length;
+
+          newMessages[newMessages.length - 1].text +=
+            currentLastMessage.fullText[nextCharIndex];
+
+          if (
+            newMessages[newMessages.length - 1].text.length ===
+            currentLastMessage.fullText.length
+          ) {
+            clearInterval(intervalId);
+            setIsLoading(false);
+          }
+
+          return newMessages;
+        });
+      }, 15);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [messages]);
   const openDialog = () => {
     dialogRef.current?.showModal();
   };
@@ -129,7 +177,7 @@ const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Digite sua mensagem..."
           />
-          <button type="submit">
+          <button type="submit" disabled={isLoading}>
             <img className="feather" src={feather}></img>
           </button>
         </form>
