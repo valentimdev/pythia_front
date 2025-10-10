@@ -47,11 +47,16 @@
   border: solid black 2px;
   margin-bottom: 3px;
   padding:0px 10px;
+  box-shadow: 2px 2px 0px #000000;
+  /* text-shadow:  2px 1px 0px #000000; */
 }
+
 .caixa_remetente p{
   /* border:solid black; */
   margin-top: 0;
   /* margin: top 0 */
+  
+
 }
 .caixa_mensagem{
   margin-bottom:0;
@@ -69,9 +74,12 @@
 .user_row .message_bubble {
   align-self: flex-start;
   color: #ffff01;
+    border-radius: 13px 13px 0px 13px;
+  text-shadow:  2px 1px 0px #000000; 
 }
 .user_row .message_bubble p {
   text-align: right;
+  
 }
 .user_row {
   justify-content: flex-end;
@@ -80,17 +88,20 @@
 .oracle_row {
   justify-content: flex-start;
   margin-left: 20px;
-  
+  text-shadow:  3px 3px  5px #8A2BE2; 
+  /* talvez mudar esse text shadow no futuro? */
 }
 .oracle_row .message_bubble p {
   text-align: left;
   /* color:#BDA0FF; */
   color: #6d1cb8d8;
   /* color:#8A2BE2; */
+  
 }
 
 .oracle_row .message_bubble {
   align-self: flex-start;
+  border-radius: 13px 13px 13px 0px;
 
   color: #fff;
 }
