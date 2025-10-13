@@ -182,6 +182,7 @@ p{
     /* rgba(255, 255, 255, 0.1), Branco bem sutil no início */
     /* transparent 10% Fica transparente na metade, revelando a cor de fundo */
   /* ); */
+  
 }
 button {
   background: none;
@@ -299,4 +300,8 @@ button {
 }
 .messages_area::-webkit-scrollbar-button:vertical:start:increment {
   display: none;
+}
+
+.scroll-locked {
+  overflow-y: hidden;
 }

@@ -22,12 +22,9 @@ function Chat() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (newMessage.trim() === '') {
-      return;
-    }
+    if (newMessage.trim() === '') return;
 
     const userMessage: Message = {
       id: Date.now(),
@@ -38,10 +35,39 @@ function Chat() {
 
     const currentMessage = newMessage;
     setNewMessage('');
-
     setIsLoading(true);
-    setTimeout(() => {
-      const fullOracleText = `Entendido. Gerando detalhes místicos sobre: "${currentMessage}"`;
+
+    try {
+
+      const apiUrl = import.meta.env.VITE_API_URL;
+      
+      if (!apiUrl) {
+        throw new Error("A URL da API não está configurada no arquivo .env");
+      }
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify({ message: currentMessage }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Erro na resposta da API: ${response.status} - ${errorData}`);
+      }
+
+      const data = await response.json();
+      
+
+      const fullOracleText = data.message; 
+
+      if (typeof fullOracleText !== 'string') {
+          throw new Error("Formato de resposta da API inesperado.");
+      }
+
       const oracleResponse: Message = {
         id: Date.now(),
         text: '',
@@ -50,9 +76,21 @@ function Chat() {
       };
 
       setMessages((prevMessages) => [...prevMessages, oracleResponse]);
-      // setIsLoading(false);
-    }, 1500);
+
+    } catch (error) {
+      console.error("Falha ao comunicar com o oráculo Pythia:", error);
+      const errorResponse: Message = {
+        id: Date.now(),
+        text: '',
+        sender: 'oracle',
+        fullText: "Desculpe, viajante. Minhas visões estão turvas... Tente novamente mais tarde.",
+      };
+      setMessages((prevMessages) => [...prevMessages, errorResponse]);
+    }
+
   };
+
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -151,7 +189,7 @@ function Chat() {
           <h1>Pythia</h1>
           {/* <img className="globo" src={globo}></img> */}
         </div>
-        <div className="messages_area">
+        <div className={`messages_area ${isLoading ? 'scroll-locked' : ''}`}>
           {messages.map((message) => (
             <div
               key={message.id}
