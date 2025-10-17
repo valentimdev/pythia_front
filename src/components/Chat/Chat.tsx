@@ -21,6 +21,10 @@ function Chat() {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [isLoading, setIsLoading] = useState(false);
+  
+  const lastMessage = messages[messages.length - 1];
+
+  const showLoadingDots = isLoading && (!lastMessage || lastMessage.sender === 'user');
 
     const handleSendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -207,6 +211,19 @@ function Chat() {
               </div>
             </div>
           ))}
+          {showLoadingDots && (
+      <div className="message_row oracle_row" id="loading-bubble">
+        <div className="message_bubble">
+          <div className="caixa_mensagem">
+            {/* Usamos a classe CSS que criamos */}
+            <p><span className="loading-dots"></span></p> 
+          </div>
+          <div className="caixa_remetente">
+            <p>Pythia</p>
+          </div>
+        </div>
+      </div>
+    )}
           <div ref={messagesEndRef} />
         </div>
         <form className="input_area" onSubmit={handleSendMessage}>
