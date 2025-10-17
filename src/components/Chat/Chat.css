@@ -75,12 +75,12 @@
 .oracle_row {
   justify-content: flex-start;
   margin-left: 20px;
-  text-shadow:  3px 3px  5px #8A2BE2; 
+  text-shadow: 1px 1px 4px black;
 
 }
 .oracle_row .message_bubble p {
   text-align: left;
-  color: #6d1cb8d8;
+  color: #C88DFF;
 
   
 }
