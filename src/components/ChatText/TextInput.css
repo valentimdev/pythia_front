@@ -92,3 +92,10 @@
 .input_text::-webkit-scrollbar-button:vertical:start:increment {
   display: none;
 }
+
+.fechar{
+  font-family:var(--font-rune);
+  text-align: center;
+  font-size:25px;
+  cursor: pointer;
+}
