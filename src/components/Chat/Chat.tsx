@@ -94,7 +94,15 @@ function Chat() {
 
   };
 
-
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault(); 
+    const form = e.currentTarget.form; 
+    if (form) {
+      form.requestSubmit(); 
+    }
+  }
+};
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -231,6 +239,7 @@ function Chat() {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Digite sua mensagem..."
+            onKeyDown={handleKeyDown} 
           />
           <button type="submit" disabled={isLoading}>
             <img className="feather" src={feather}></img>
